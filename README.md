@@ -1,5 +1,5 @@
 # Maintenance
-[![Build Status](https://api.travis-ci.org/alexanderbeletsky/maintenance.png)](http://travis-ci.org/alexanderbeletsky/maintenance)
+[![Build Status](https://api.travis-ci.org/likeastore/maintenance.png)](https://travis-ci.org/likeastore/maintenance)
 
 Express.js middleware for easy switching the app to maintenance mode.
 
