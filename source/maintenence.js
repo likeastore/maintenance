@@ -3,7 +3,8 @@ function maintenence(app, options) {
 		endpoint = false,
 		url ='/maintenence',
 		accessKey,
-		view = 'maintenence.html';
+		view = 'maintenence.html',
+		api = false;
 
 	if (typeof options === 'boolean') {
 		mode = options;
@@ -13,6 +14,7 @@ function maintenence(app, options) {
 		url = options.url || url;
 		accessKey = options.accessKey;
 		view = options.view || view;
+		api = options.api || api;
 	} else {
 		throw new Error('unsuported options');
 	}
@@ -30,9 +32,19 @@ function maintenence(app, options) {
 		res.send(401);
 	};
 
+	var handle = function (req, res, next) {
+		var isApi = api && req.url.indexOf(api) === 0;
+
+		if (isApi) {
+			res.json({message: 'sorry, we are on maintenance'}, 503);
+		} else {
+			res.render(view);
+		}
+	};
+
 	var middleware = function (req, res, next) {
 		if (mode) {
-			res.render(view);
+			handle(req, res, next);
 		}
 
 		next();

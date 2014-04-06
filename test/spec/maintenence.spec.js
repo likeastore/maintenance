@@ -285,4 +285,32 @@ describe('maintenance.spec.js', function () {
 			expect(results).to.equal('<h1>We are on maintenence 2</h1>');
 		});
 	});
+
+	describe('with api', function () {
+		before(function () {
+			app = require('../app/app')({current: true, api: '/api' });
+		});
+
+		after(function (done) {
+			app.close(function (err) {
+				done(err);
+			});
+		});
+
+		beforeEach(function (done) {
+			request.get({url: url + '/api/call', json: true}, function (err, resp, body) {
+				response = resp;
+				results = body;
+				done(err);
+			});
+		});
+
+		it('should return 503 (unavailable)', function () {
+			expect(response.statusCode).to.equal(503);
+		});
+
+		it('should be maintenance page', function () {
+			expect(results.message).to.equal('sorry, we are on maintenance');
+		});
+	});
 });

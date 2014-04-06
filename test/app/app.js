@@ -14,6 +14,10 @@ function create(options) {
 		res.send(200);
 	});
 
+	app.get('/api/call', function (req, res) {
+		res.json({response: 'response'});
+	});
+
 	maintenance(app, options);
 
 	var server = app.listen(app.get('port'));
