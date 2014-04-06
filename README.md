@@ -1,4 +1,5 @@
 # Maintenance
+[![Build Status](https://api.travis-ci.org/rschmukler/agenda.png)](http://travis-ci.org/rschmukler/agenda)
 
 Express.js middleware for easy switching the app to maintenance mode.
 
