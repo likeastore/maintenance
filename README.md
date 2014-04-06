@@ -92,11 +92,10 @@ var options = {
 	url: '/app/mt',						// if `httpEndpoint` is on, customize endpoint url, default **'/maintenance'**
 	accessKey: 'xx4zUU8Cyy7',			// token that client send to authorize, if not defined `access_key` is not used
 	view: 'myview.html',				// view to render on maintenance, default **'maintenance.html'**
-	api: {
-		url: '/api',					// for rest API, species root URL to apply, default **'/api'**
-		status: 503,					// status code for response, default **503**
-		message: 'will be back'			// response message, default **'sorry, we are on maintenance'**
-	}
+	api: '/api',						// for rest API, species root URL to apply, default **undefined**
+	status: 503,						// status code for response, default **503**
+	message: 'will be back'				// response message, default **'sorry, we are on maintenance'**
+
 };
 
 maintenance(app, options);
