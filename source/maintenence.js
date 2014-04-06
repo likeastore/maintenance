@@ -1,5 +1,5 @@
 function maintenence(app, options) {
-	var mode, endpoint, url;
+	var mode, endpoint, url, accessKey;
 
 	if (typeof options === 'boolean') {
 		mode = options;
@@ -7,9 +7,23 @@ function maintenence(app, options) {
 		mode = options.current || false;
 		endpoint = options.httpEndpoint || false;
 		url = options.url || '/maintenence';
+		accessKey = options.accessKey;
 	} else {
 		throw new Error('unsuported options');
 	}
+
+	var checkAccess = function (req, res, next) {
+		if (!accessKey) {
+			return next();
+		}
+
+		var match = req.query.access_key === accessKey;
+		if (match) {
+			return next();
+		}
+
+		res.send(401);
+	};
 
 	var middleware = function (req, res, next) {
 		if (mode) {
@@ -21,12 +35,12 @@ function maintenence(app, options) {
 
 	var server = function (app) {
 		if (endpoint) {
-			app.post(url, function (req, res) {
+			app.post(url, checkAccess, function (req, res) {
 				mode = true;
 				res.send(200);
 			});
 
-			app.del(url, function (req, res) {
+			app.del(url, checkAccess, function (req, res) {
 				mode = false;
 				res.send(200);
 			});

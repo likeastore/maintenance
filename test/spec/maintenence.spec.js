@@ -177,4 +177,85 @@ describe('maintenance.spec.js', function () {
 			});
 		});
 	});
+
+	describe('with enabled endpoint and access key', function () {
+		before(function () {
+			app = require('../app/app')({httpEndpoint: true, accessKey: 'secret'});
+		});
+
+		after(function (done) {
+			app.close(function (err) {
+				done(err);
+			});
+		});
+
+		describe('secret is wrong', function () {
+			describe('when enabled', function () {
+				beforeEach(function (done) {
+					request.post(url + '/maintenence?access_key=wrong', function (err, resp, body) {
+						response = resp;
+						results = body;
+						done(err);
+					});
+				});
+
+				it('should respond 401 (not authorized)', function () {
+					expect(response.statusCode).to.equal(401);
+				});
+			});
+
+			describe('when disabled', function () {
+				beforeEach(function (done) {
+					request.del(url + '/maintenence?access_key=wrong', function (err, resp, body) {
+						response = resp;
+						results = body;
+						done(err);
+					});
+				});
+
+				it('should respond 401 (not authorized)', function () {
+					expect(response.statusCode).to.equal(401);
+				});
+			});
+		});
+
+		describe('put to maintenance', function () {
+			beforeEach(function (done) {
+				request.post(url + '/maintenence?access_key=secret', done);
+			});
+
+			beforeEach(function (done) {
+				request.get(url, function (err, resp, body) {
+					response = resp;
+					results = body;
+					done(err);
+				});
+			});
+
+			it('should return maintenence page', function () {
+				expect(response.statusCode).to.equal(200);
+				expect(results).to.equal('<h1>We are on maintenence</h1>');
+			});
+
+			describe('and return back to normal', function () {
+				beforeEach(function (done) {
+					request.del(url + '/maintenence?access_key=secret', done);
+				});
+
+				beforeEach(function (done) {
+					request.get(url, function (err, resp, body) {
+						response = resp;
+						results = body;
+						done(err);
+					});
+				});
+
+				it('should return normal page', function () {
+					expect(response.statusCode).to.equal(200);
+					expect(results).to.equal('OK');
+				});
+			});
+		});
+	});
+
 });

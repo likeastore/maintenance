@@ -84,7 +84,7 @@ var options = {
 	current: true,						// current state, default **false**
 	httpEndpoint: true,					// expose http endpoint for hot-switch, default **false**,
 	url: '/app/mt',						// if `httpEndpoint` is on, customize endpoint url, default **'/maintenance'**
-	sharedSecret: 'xx4zUU8Cyy7',		// token that client send to authorize, if not defined `access_key` is not used
+	accessKey: 'xx4zUU8Cyy7',			// token that client send to authorize, if not defined `access_key` is not used
 	view: 'myview.html',				// view to render on maintenance, default **'maintenance.html'**
 	api: {
 		url: '/api',					// for rest API, species root URL to apply, default **'/api'**
