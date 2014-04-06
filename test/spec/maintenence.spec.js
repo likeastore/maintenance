@@ -59,7 +59,7 @@ describe('maintenance.spec.js', function () {
 		});
 
 		it('should be maintenance page', function () {
-			expect(results).to.equal('<h1>We are on maintenence</h1>');
+			expect(results).to.equal('<h1>We are on maintenance</h1>');
 		});
 	});
 
@@ -91,7 +91,7 @@ describe('maintenance.spec.js', function () {
 
 		describe('put to maintenance', function () {
 			beforeEach(function (done) {
-				request.post(url + '/maintenence', done);
+				request.post(url + '/maintenance', done);
 			});
 
 			beforeEach(function (done) {
@@ -102,14 +102,14 @@ describe('maintenance.spec.js', function () {
 				});
 			});
 
-			it('should return maintenence page', function () {
+			it('should return maintenance page', function () {
 				expect(response.statusCode).to.equal(200);
-				expect(results).to.equal('<h1>We are on maintenence</h1>');
+				expect(results).to.equal('<h1>We are on maintenance</h1>');
 			});
 
 			describe('and return back to normal', function () {
 				beforeEach(function (done) {
-					request.del(url + '/maintenence', done);
+					request.del(url + '/maintenance', done);
 				});
 
 				beforeEach(function (done) {
@@ -152,9 +152,9 @@ describe('maintenance.spec.js', function () {
 				});
 			});
 
-			it('should return maintenence page', function () {
+			it('should return maintenance page', function () {
 				expect(response.statusCode).to.equal(200);
-				expect(results).to.equal('<h1>We are on maintenence</h1>');
+				expect(results).to.equal('<h1>We are on maintenance</h1>');
 			});
 
 			describe('and return back to normal', function () {
@@ -192,7 +192,7 @@ describe('maintenance.spec.js', function () {
 		describe('secret is wrong', function () {
 			describe('when enabled', function () {
 				beforeEach(function (done) {
-					request.post(url + '/maintenence?access_key=wrong', function (err, resp, body) {
+					request.post(url + '/maintenance?access_key=wrong', function (err, resp, body) {
 						response = resp;
 						results = body;
 						done(err);
@@ -206,7 +206,7 @@ describe('maintenance.spec.js', function () {
 
 			describe('when disabled', function () {
 				beforeEach(function (done) {
-					request.del(url + '/maintenence?access_key=wrong', function (err, resp, body) {
+					request.del(url + '/maintenance?access_key=wrong', function (err, resp, body) {
 						response = resp;
 						results = body;
 						done(err);
@@ -221,7 +221,7 @@ describe('maintenance.spec.js', function () {
 
 		describe('put to maintenance', function () {
 			beforeEach(function (done) {
-				request.post(url + '/maintenence?access_key=secret', done);
+				request.post(url + '/maintenance?access_key=secret', done);
 			});
 
 			beforeEach(function (done) {
@@ -232,14 +232,14 @@ describe('maintenance.spec.js', function () {
 				});
 			});
 
-			it('should return maintenence page', function () {
+			it('should return maintenance page', function () {
 				expect(response.statusCode).to.equal(200);
-				expect(results).to.equal('<h1>We are on maintenence</h1>');
+				expect(results).to.equal('<h1>We are on maintenance</h1>');
 			});
 
 			describe('and return back to normal', function () {
 				beforeEach(function (done) {
-					request.del(url + '/maintenence?access_key=secret', done);
+					request.del(url + '/maintenance?access_key=secret', done);
 				});
 
 				beforeEach(function (done) {
@@ -260,7 +260,7 @@ describe('maintenance.spec.js', function () {
 
 	describe('with custom view', function () {
 		before(function () {
-			app = require('../app/app')({current: true, view: 'maintenence2.html'});
+			app = require('../app/app')({current: true, view: 'maintenance2.html'});
 		});
 
 		after(function (done) {
@@ -282,7 +282,7 @@ describe('maintenance.spec.js', function () {
 		});
 
 		it('should be maintenance page', function () {
-			expect(results).to.equal('<h1>We are on maintenence 2</h1>');
+			expect(results).to.equal('<h1>We are on maintenance 2</h1>');
 		});
 	});
 
@@ -311,6 +311,62 @@ describe('maintenance.spec.js', function () {
 
 		it('should be maintenance page', function () {
 			expect(results.message).to.equal('sorry, we are on maintenance');
+		});
+	});
+
+	describe('with api and custom status', function () {
+		before(function () {
+			app = require('../app/app')({current: true, api: '/api', status: 501});
+		});
+
+		after(function (done) {
+			app.close(function (err) {
+				done(err);
+			});
+		});
+
+		beforeEach(function (done) {
+			request.get({url: url + '/api/call', json: true}, function (err, resp, body) {
+				response = resp;
+				results = body;
+				done(err);
+			});
+		});
+
+		it('should return 501 (unavailable)', function () {
+			expect(response.statusCode).to.equal(501);
+		});
+
+		it('should be maintenance page', function () {
+			expect(results.message).to.equal('sorry, we are on maintenance');
+		});
+	});
+
+	describe('with api and custom status and message', function () {
+		before(function () {
+			app = require('../app/app')({current: true, api: '/api', status: 501, message: 'down, down, down'});
+		});
+
+		after(function (done) {
+			app.close(function (err) {
+				done(err);
+			});
+		});
+
+		beforeEach(function (done) {
+			request.get({url: url + '/api/call', json: true}, function (err, resp, body) {
+				response = resp;
+				results = body;
+				done(err);
+			});
+		});
+
+		it('should return 501 (unavailable)', function () {
+			expect(response.statusCode).to.equal(501);
+		});
+
+		it('should be maintenance page', function () {
+			expect(results.message).to.equal('down, down, down');
 		});
 	});
 });

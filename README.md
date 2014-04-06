@@ -95,7 +95,6 @@ var options = {
 	api: '/api',						// for rest API, species root URL to apply, default **undefined**
 	status: 503,						// status code for response, default **503**
 	message: 'will be back'				// response message, default **'sorry, we are on maintenance'**
-
 };
 
 maintenance(app, options);

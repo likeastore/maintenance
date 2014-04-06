@@ -1,6 +1,6 @@
 function create(options) {
 	var express = require('express');
-	var maintenance = require('../../source/maintenence');
+	var maintenance = require('../../source/maintenance');
 
 	var app = express();
 
