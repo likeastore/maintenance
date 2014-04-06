@@ -31,10 +31,10 @@ Hot-switch is could more convenient since doesn't require re-start. And could be
 
 ```
 # put app to maintanance
-HTTP PUT http://youapp.com/maintenance?key=[SHARED_SECRET_KEY]
+HTTP PUT http://youapp.com/maintenance?access_key=[SHARED_SECRET_KEY]
 
 # back to norma
-HTTP DELETE http://youapp.com/maintenance?key=[SHARED_SECRET_KEY]
+HTTP DELETE http://youapp.com/maintenance?access_key=[SHARED_SECRET_KEY]
 ```
 
 By default, if application in maintenance mode, it would render `views/maintenance.html` view.
@@ -84,7 +84,7 @@ var options = {
 	current: true,						// current state, default **false**
 	httpEndpoint: true,					// expose http endpoint for hot-switch, default **false**,
 	url: '/app/mt',						// if `httpEndpoint` is on, customize endpoint url, default **'/maintenance'**
-	sharedSecret: 'xx4zUU8Cyy7',		// token that client send to authorize, default **'PLZ_CHANGE_ME'**
+	sharedSecret: 'xx4zUU8Cyy7',		// token that client send to authorize, if not defined `access_key` is not used
 	view: 'myview.html',				// view to render on maintenance, default **'maintenance.html'**
 	api: {
 		url: '/api',					// for rest API, species root URL to apply, default **'/api'**

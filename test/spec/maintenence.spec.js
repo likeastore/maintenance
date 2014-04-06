@@ -81,6 +81,44 @@ describe('maintenance.spec.js', function () {
 					results = body;
 					done(err);
 				});
+			});
+
+			it('should return normal page', function () {
+				expect(response.statusCode).to.equal(200);
+				expect(results).to.equal('OK');
+			});
+		});
+
+		describe('put to maintenance', function () {
+			beforeEach(function (done) {
+				request.post(url + '/maintenence', done);
+			});
+
+			beforeEach(function (done) {
+				request.get(url, function (err, resp, body) {
+					response = resp;
+					results = body;
+					done(err);
+				});
+			});
+
+			it('should return maintenence page', function () {
+				expect(response.statusCode).to.equal(200);
+				expect(results).to.equal('<h1>We are on maintenence</h1>');
+			});
+
+			describe('and return back to normal', function () {
+				beforeEach(function (done) {
+					request.del(url + '/maintenence', done);
+				});
+
+				beforeEach(function (done) {
+					request.get(url, function (err, resp, body) {
+						response = resp;
+						results = body;
+						done(err);
+					});
+				});
 
 				it('should return normal page', function () {
 					expect(response.statusCode).to.equal(200);

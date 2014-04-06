@@ -1,19 +1,38 @@
 function maintenence(app, options) {
-	var maintenenceMode = false;
+	var mode, endpoint;
 
 	if (typeof options === 'boolean') {
-		maintenenceMode = options;
+		mode = options;
+	} else if (typeof options === 'object') {
+		mode = options.current || false;
+		endpoint = options.httpEndpoint || false;
+	} else {
+		throw new Error('unsuported options');
 	}
 
 	var middleware = function (req, res, next) {
-		if (maintenenceMode) {
+		if (mode) {
 			res.render('maintenence.html');
 		}
 
 		next();
 	};
 
-	var inject = function () {
+	var server = function (app) {
+		if (endpoint) {
+			app.post('/maintenence', function (req, res) {
+				mode = true;
+				res.send(200);
+			});
+
+			app.del('/maintenence', function (req, res) {
+				mode = false;
+				res.send(200);
+			});
+		}
+	};
+
+	var inject = function (app) {
 		for (var verb in app.routes) {
 			var routes = app.routes[verb];
 			routes.forEach(patchRoute);
@@ -26,7 +45,7 @@ function maintenence(app, options) {
 		return app;
 	};
 
-	return inject(app);
+	return server(inject(app));
 }
 
 module.exports = maintenence;
