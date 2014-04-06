@@ -4,7 +4,7 @@ Express.js middleware for easy switching the app to maintenance mode.
 
 ## Description
 
-Deployment of new version of app or patching the database, could cause the need to put application to `maintanance` mode before all operations are completed. Typically, it's just a page with description of what's happening and when service is going to be restore.
+Deployment of new version of app or patching the database, could cause the need to put application to `maintenancee` mode before all operations are completed. Typically, it's just a page with description of what's happening and when service is going to be restore.
 
 For REST API's, it's required to send a meaningful HTTP code and description.
 
