@@ -1,10 +1,16 @@
 {
-  "name": "maintanance",
+  "name": "maintenance",
   "version": "0.0.1",
   "description": "Express.js middleware for easy switching the app to maintenance mode.",
   "main": "source/maintenance.js",
   "scripts": {
-    "test": "node test/run.js"
+    "test": "make test-once"
+  },
+  "config": {
+    "blanket": {
+      "pattern": "source",
+      "data-cover-never": "node_modules"
+    }
   },
   "repository": {
     "type": "git",
