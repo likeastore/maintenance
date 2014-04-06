@@ -1,0 +1,33 @@
+{
+  "name": "maintanance",
+  "version": "0.0.1",
+  "description": "Express.js middleware for easy switching the app to maintenance mode.",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test/run.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/likeastore/maintenance.git"
+  },
+  "keywords": [
+    "express.js",
+    "maintenance",
+    "mode",
+    "switch"
+  ],
+  "author": "info@likeastore.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/likeastore/maintenance/issues"
+  },
+  "devDependencies": {
+    "mocha": "~1.10.0",
+    "chai": "~1.6.1",
+    "sinon-chai": "~2.4.0",
+    "request": "~2.21.0",
+    "express": "~3.5.1",
+    "ejs": "~1.0.0"
+  },
+  "homepage": "https://github.com/likeastore/maintenance"
+}
