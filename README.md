@@ -4,13 +4,13 @@ Express.js middleware for easy switching the app to maintenance mode.
 
 ## Description
 
-Deployment of new version of app or patching the database, could cause the need to put application to `maintenancee` mode before all operations are completed. Typically, it's just a page with description of what's happening and when service is going to be restore.
+Deployment of new version of app or patching the database, could cause the need to put application to `maintenance` mode before all operations are completed. Typically, it's just a page with description of what's happening and when service is going to be restore.
 
 For REST API's, it's required to send a meaningful HTTP code and description.
 
-## How to works
+## How it works
 
-`maintanace` provides middleware and http-endpoint for putting application to maintenance mode.
+`maintenance` provides middleware and http-endpoint for putting application to maintenance mode.
 
 It supports 2 modes of work:
 
@@ -29,7 +29,7 @@ maintenance(app, config.maintenance);
 
 Hot-switch is could more convenient since doesn't require re-start. And could be controlled by HTTP:
 
-```
+```bash
 # put app to maintanance
 HTTP PUT http://youapp.com/maintenance?access_key=[SHARED_SECRET_KEY]
 
@@ -44,7 +44,7 @@ By default, if application in maintenance mode, it would render `views/maintenan
 Install `maintenance` from npm,
 
 ```bash
-> npm install maintenance
+$ npm install maintenance
 ```
 
 Update your application,
@@ -75,9 +75,15 @@ or take from config,
 maintenance(app, config.maintenence.current);
 ```
 
+or use options,
+
+```js
+maintenance(app, {httpEndpoint: true, api: '/api'});
+```
+
 ## Options
 
-Instead of initial you can customize `maintenence` with options object,
+Instead of initial you can customize `maintenance` with options object,
 
 ```js
 var options = {
