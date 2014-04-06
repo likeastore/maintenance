@@ -62,4 +62,31 @@ describe('maintenance.spec.js', function () {
 			expect(results).to.equal('<h1>We are on maintenence</h1>');
 		});
 	});
+
+	describe('hot switch', function () {
+		before(function () {
+			app = require('../app/app')({httpEndpoint: true});
+		});
+
+		after(function (done) {
+			app.close(function (err) {
+				done(err);
+			});
+		});
+
+		describe('initially normal mode', function () {
+			beforeEach(function (done) {
+				request.get(url, function (err, resp, body) {
+					response = resp;
+					results = body;
+					done(err);
+				});
+
+				it('should return normal page', function () {
+					expect(response.statusCode).to.equal(200);
+					expect(results).to.equal('OK');
+				});
+			});
+		});
+	});
 });

@@ -82,7 +82,7 @@ Instead of initial you can customize `maintenence` with options object,
 ```js
 var options = {
 	current: true,						// current state, default **false**
-	httpEndpoint: true,					// expose http endpoint for hot-switch, default **true**,
+	httpEndpoint: true,					// expose http endpoint for hot-switch, default **false**,
 	url: '/app/mt',						// if `httpEndpoint` is on, customize endpoint url, default **'/maintenance'**
 	sharedSecret: 'xx4zUU8Cyy7',		// token that client send to authorize, default **'PLZ_CHANGE_ME'**
 	view: 'myview.html',				// view to render on maintenance, default **'maintenance.html'**
