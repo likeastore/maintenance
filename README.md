@@ -34,7 +34,7 @@ Hot-switch is could more convenient since doesn't require re-start. And could be
 # put app to maintanance
 HTTP PUT http://youapp.com/maintenance?access_key=[SHARED_SECRET_KEY]
 
-# back to norma
+# back to normal
 HTTP DELETE http://youapp.com/maintenance?access_key=[SHARED_SECRET_KEY]
 ```
 
@@ -102,19 +102,6 @@ maintenance(app, options);
 ```
 
 ## Licence (MIT)
-
-```
-WWWWWW||WWWWWW
- W W W||W W W
-      ||
-    ( OO )__________
-     /  |           \
-    /o o|    MIT     \
-    \___/||_||__||_|| *
-         || ||  || ||
-        _||_|| _||_||
-       (__|__|(__|__|
-```
 
 Copyright (c) 2013, Likeastore.com info@likeastore.com
 
