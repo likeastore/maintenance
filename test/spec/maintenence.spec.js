@@ -258,4 +258,32 @@ describe('maintenance.spec.js', function () {
 		});
 	});
 
+	describe('with custom view', function () {
+		before(function () {
+			app = require('../app/app')({current: true, view: 'maintenence2.html'});
+		});
+
+		after(function (done) {
+			app.close(function (err) {
+				done(err);
+			});
+		});
+
+		beforeEach(function (done) {
+			request.get(url, function (err, resp, body) {
+				response = resp;
+				results = body;
+				done(err);
+			});
+		});
+
+		it('should return 200 (ok)', function () {
+			expect(response.statusCode).to.equal(200);
+		});
+
+		it('should be maintenance page', function () {
+			expect(results).to.equal('<h1>We are on maintenence 2</h1>');
+		});
+	});
+
 });
