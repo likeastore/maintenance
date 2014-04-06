@@ -9,8 +9,6 @@ Deployment of new version of app or patching the database, could cause the need 
 
 For REST API's, it's required to send a meaningful HTTP code and description.
 
-## How it works
-
 `maintenance` provides middleware and http-endpoint for putting application to maintenance mode.
 
 It supports 2 modes of work:
