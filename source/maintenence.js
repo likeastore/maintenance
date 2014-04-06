@@ -1,11 +1,12 @@
 function maintenence(app, options) {
-	var mode, endpoint;
+	var mode, endpoint, url;
 
 	if (typeof options === 'boolean') {
 		mode = options;
 	} else if (typeof options === 'object') {
 		mode = options.current || false;
 		endpoint = options.httpEndpoint || false;
+		url = options.url || '/maintenence';
 	} else {
 		throw new Error('unsuported options');
 	}
@@ -20,12 +21,12 @@ function maintenence(app, options) {
 
 	var server = function (app) {
 		if (endpoint) {
-			app.post('/maintenence', function (req, res) {
+			app.post(url, function (req, res) {
 				mode = true;
 				res.send(200);
 			});
 
-			app.del('/maintenence', function (req, res) {
+			app.del(url, function (req, res) {
 				mode = false;
 				res.send(200);
 			});
