@@ -1,12 +1,12 @@
 function maintenence(app, options) {
-	var turn;
+	var maintenenceMode = false;
 
 	if (typeof options === 'boolean') {
-		turn = options;
+		maintenenceMode = options;
 	}
 
 	var middleware = function (req, res, next) {
-		if (turn) {
+		if (maintenenceMode) {
 			res.render('maintenence.html');
 		}
 
