@@ -285,5 +285,4 @@ describe('maintenance.spec.js', function () {
 			expect(results).to.equal('<h1>We are on maintenence 2</h1>');
 		});
 	});
-
 });

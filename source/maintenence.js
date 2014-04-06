@@ -1,13 +1,18 @@
 function maintenence(app, options) {
-	var mode, endpoint, url, accessKey;
+	var mode = false,
+		endpoint = false,
+		url ='/maintenence',
+		accessKey,
+		view = 'maintenence.html';
 
 	if (typeof options === 'boolean') {
 		mode = options;
 	} else if (typeof options === 'object') {
-		mode = options.current || false;
-		endpoint = options.httpEndpoint || false;
-		url = options.url || '/maintenence';
+		mode = options.current || mode;
+		endpoint = options.httpEndpoint || endpoint;
+		url = options.url || url;
 		accessKey = options.accessKey;
+		view = options.view || view;
 	} else {
 		throw new Error('unsuported options');
 	}
@@ -27,7 +32,7 @@ function maintenence(app, options) {
 
 	var middleware = function (req, res, next) {
 		if (mode) {
-			res.render('maintenence.html');
+			res.render(view);
 		}
 
 		next();
