@@ -30,7 +30,7 @@ Hot-switch is could more convenient since doesn't require re-start. And could be
 
 ```bash
 # put app to maintanance
-HTTP PUT http://youapp.com/maintenance?access_key=[SHARED_SECRET_KEY]
+HTTP POST http://youapp.com/maintenance?access_key=[SHARED_SECRET_KEY]
 
 # back to normal
 HTTP DELETE http://youapp.com/maintenance?access_key=[SHARED_SECRET_KEY]
