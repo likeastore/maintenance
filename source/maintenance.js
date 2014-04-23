@@ -36,6 +36,20 @@ function maintenance(app, options) {
 		res.send(401);
 	};
 
+	var server = function (app) {
+		if (endpoint) {
+			app.post(url, checkAccess, function (req, res) {
+				mode = true;
+				res.send(200);
+			});
+
+			app.del(url, checkAccess, function (req, res) {
+				mode = false;
+				res.send(200);
+			});
+		}
+	};
+
 	var handle = function (req, res, next) {
 		var isApi = api && req.url.indexOf(api) === 0;
 
@@ -52,20 +66,6 @@ function maintenance(app, options) {
 		}
 
 		next();
-	};
-
-	var server = function (app) {
-		if (endpoint) {
-			app.post(url, checkAccess, function (req, res) {
-				mode = true;
-				res.send(200);
-			});
-
-			app.del(url, checkAccess, function (req, res) {
-				mode = false;
-				res.send(200);
-			});
-		}
 	};
 
 	var inject = function (app) {
