@@ -54,8 +54,8 @@ describe('maintenance.spec.js', function () {
 			});
 		});
 
-		it('should return 200 (ok)', function () {
-			expect(response.statusCode).to.equal(200);
+		it('should return 503 (Service Unavailable)', function () {
+			expect(response.statusCode).to.equal(503);
 		});
 
 		it('should be maintenance page', function () {
@@ -103,7 +103,7 @@ describe('maintenance.spec.js', function () {
 			});
 
 			it('should return maintenance page', function () {
-				expect(response.statusCode).to.equal(200);
+				expect(response.statusCode).to.equal(503);
 				expect(results).to.equal('<h1>We are on maintenance</h1>');
 			});
 
@@ -153,7 +153,7 @@ describe('maintenance.spec.js', function () {
 			});
 
 			it('should return maintenance page', function () {
-				expect(response.statusCode).to.equal(200);
+				expect(response.statusCode).to.equal(503);
 				expect(results).to.equal('<h1>We are on maintenance</h1>');
 			});
 
@@ -233,7 +233,7 @@ describe('maintenance.spec.js', function () {
 			});
 
 			it('should return maintenance page', function () {
-				expect(response.statusCode).to.equal(200);
+				expect(response.statusCode).to.equal(503);
 				expect(results).to.equal('<h1>We are on maintenance</h1>');
 			});
 
@@ -277,8 +277,8 @@ describe('maintenance.spec.js', function () {
 			});
 		});
 
-		it('should return 200 (ok)', function () {
-			expect(response.statusCode).to.equal(200);
+		it('should return 503 (Service Unavailable)', function () {
+			expect(response.statusCode).to.equal(503);
 		});
 
 		it('should be maintenance page', function () {
