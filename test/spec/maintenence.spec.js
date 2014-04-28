@@ -1,13 +1,13 @@
 var request = require('request');
 
-describe('maintenance.spec.js', function () {
+describe('maintenance.js', function () {
 	var url, app, response, results;
 
 	before(function () {
 		url = 'http://localhost:3030';
 	});
 
-	describe('start up in normal mode', function () {
+	describe('when starting up in normal mode', function () {
 		before(function () {
 			app = require('../app/app')(false);
 		});
@@ -35,7 +35,7 @@ describe('maintenance.spec.js', function () {
 		});
 	});
 
-	describe('start in maintenance mode', function () {
+	describe('when starting in maintenance mode', function () {
 		before(function () {
 			app = require('../app/app')(true);
 		});
