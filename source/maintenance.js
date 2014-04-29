@@ -52,7 +52,8 @@ function maintenance(app, options) {
 
 	var handle = function (req, res, next) {
 		var isApi = api && req.url.indexOf(api) === 0;
-                res.status(status);
+
+		res.status(status);
 
 		if (isApi) {
 			res.json({message: message});
