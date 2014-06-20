@@ -18,6 +18,20 @@ function create(options) {
 		res.json({response: 'response'});
 	});
 
+	// Adding another middleware so we can be sure they play nicely
+	var nextMiddleware = function(req, res, next) {
+		next();
+	};
+
+	for (var verb in app.routes) {
+		var routes = app.routes[verb];
+		routes.forEach(function(route) {
+			route.callbacks.splice(0, 0, function(req, res, next) {
+				return nextMiddleware(req, res, next);
+			});
+		});
+	}
+
 	maintenance(app, options);
 
 	var server = app.listen(app.get('port'));
@@ -25,6 +39,9 @@ function create(options) {
 	return {
 		close: function (callback) {
 			server.close(callback);
+		},
+		setNextMiddleware: function(middleware) {
+			nextMiddleware = middleware;
 		}
 	};
 }

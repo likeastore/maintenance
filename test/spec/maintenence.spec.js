@@ -61,6 +61,18 @@ describe('maintenance.js', function () {
 		it('should be maintenance page', function () {
 			expect(results).to.equal('<h1>We are on maintenance</h1>');
 		});
+
+		it('should not call the next middleware', function(done) {
+			var middlewareCalled = false;
+			app.setNextMiddleware(function(req, res, body) {
+				middlewareCalled = true;
+			});
+
+			request.get(url, function (err, resp) {
+				expect(middlewareCalled).to.be.false;
+				done(err);
+			});
+		});
 	});
 
 	describe('with enabled endpoint', function () {
