@@ -1,6 +1,6 @@
 {
   "name": "maintenance",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Express.js middleware for easy switching the app to maintenance mode.",
   "main": "source/maintenance.js",
   "scripts": {
