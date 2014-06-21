@@ -65,9 +65,9 @@ function maintenance(app, options) {
 	var middleware = function (req, res, next) {
 		if (mode) {
 			handle(req, res, next);
+		} else {
+			next();
 		}
-
-		next();
 	};
 
 	var inject = function (app) {
