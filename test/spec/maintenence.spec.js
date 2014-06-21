@@ -62,16 +62,8 @@ describe('maintenance.js', function () {
 			expect(results).to.equal('<h1>We are on maintenance</h1>');
 		});
 
-		it('should not call the next middleware', function(done) {
-			var middlewareCalled = false;
-			app.setNextMiddleware(function(req, res, body) {
-				middlewareCalled = true;
-			});
-
-			request.get(url, function (err, resp) {
-				expect(middlewareCalled).to.be.false;
-				done(err);
-			});
+		it('should not call next middleware', function () {
+			expect(app.called['/']).to.not.be.ok;
 		});
 	});
 

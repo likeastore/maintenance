@@ -2,6 +2,7 @@ function create(options) {
 	var express = require('express');
 	var maintenance = require('../../source/maintenance');
 
+	var called = {};
 	var app = express();
 
 	app.configure(function () {
@@ -11,26 +12,14 @@ function create(options) {
 	});
 
 	app.get('/', function (req, res) {
+		called['/'] = true;
 		res.send(200);
 	});
 
 	app.get('/api/call', function (req, res) {
+		called['/api/call'] = true;
 		res.json({response: 'response'});
 	});
-
-	// Adding another middleware so we can be sure they play nicely
-	var nextMiddleware = function(req, res, next) {
-		next();
-	};
-
-	for (var verb in app.routes) {
-		var routes = app.routes[verb];
-		routes.forEach(function(route) {
-			route.callbacks.splice(0, 0, function(req, res, next) {
-				return nextMiddleware(req, res, next);
-			});
-		});
-	}
 
 	maintenance(app, options);
 
@@ -40,9 +29,8 @@ function create(options) {
 		close: function (callback) {
 			server.close(callback);
 		},
-		setNextMiddleware: function(middleware) {
-			nextMiddleware = middleware;
-		}
+
+		called: called
 	};
 }
 

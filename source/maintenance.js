@@ -50,24 +50,24 @@ function maintenance(app, options) {
 		}
 	};
 
-	var handle = function (req, res, next) {
+	var handle = function (req, res) {
 		var isApi = api && req.url.indexOf(api) === 0;
 
 		res.status(status);
 
 		if (isApi) {
-			res.json({message: message});
-		} else {
-			res.render(view);
+			return res.json({message: message});
 		}
+
+		return res.render(view);
 	};
 
 	var middleware = function (req, res, next) {
 		if (mode) {
-			handle(req, res, next);
-		} else {
-			next();
+			return handle(req, res);
 		}
+
+		next();
 	};
 
 	var inject = function (app) {
