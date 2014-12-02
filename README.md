@@ -71,7 +71,7 @@ or take from config,
 
 ```js
 // starts the app in maintenance mode
-maintenance(app, config.maintenence.current);
+maintenance(app, config.maintenance.current);
 ```
 
 or use options,
