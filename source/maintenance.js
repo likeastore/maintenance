@@ -6,48 +6,51 @@ function maintenance(app, options) {
 		view = 'maintenance.html',
 		api = false,
 		status = 503,
-		message = 'sorry, we are on maintenance';
-
+		message = 'sorry, we are on maintenance', 
+		routers;
 	if (typeof options === 'boolean') {
 		mode = options;
 	} else if (typeof options === 'object') {
 		mode = options.current || mode;
 		endpoint = options.httpEndpoint || endpoint;
 		url = options.url || url;
-		accessKey = options.accessKey;
 		view = options.view || view;
 		api = options.api || api;
 		status = options.status || status;
 		message = options.message || message;
+		routers = options.routers;
 	} else {
 		throw new Error('unsuported options');
 	}
 
 	var checkAccess = function (req, res, next) {
-		if (!accessKey) {
-			return next();
-		}
 
-		var match = req.query.access_key === accessKey;
+		var match = !accessKey || req.query.access_key === accessKey;
 		if (match) {
 			return next();
 		}
 
-		res.send(401);
+		res.sendStatus(401);
 	};
 
 	var server = function (app) {
 		if (endpoint) {
+
 			app.post(url, checkAccess, function (req, res) {
+				accessKey = req.query.access_key; // Update access_key to limit connections to single user
 				mode = true;
-				res.send(200);
+				res.status(200);
+				res.json({maintenance: mode});
 			});
 
-			app.del(url, checkAccess, function (req, res) {
+			app.delete(url, checkAccess, function (req, res) {
+				accessKey = null;	// clear the accessKey to allow for other admins to connect
 				mode = false;
-				res.send(200);
+				res.status(200);
+				res.json({maintenance: mode});
 			});
 		}
+		return app;
 	};
 
 	var handle = function (req, res) {
@@ -63,7 +66,7 @@ function maintenance(app, options) {
 	};
 
 	var middleware = function (req, res, next) {
-		if (mode) {
+		if (mode && req.query.access_key !== accessKey) {
 			return handle(req, res);
 		}
 
@@ -71,13 +74,9 @@ function maintenance(app, options) {
 	};
 
 	var inject = function (app) {
-		for (var verb in app.routes) {
-			var routes = app.routes[verb];
-			routes.forEach(patchRoute);
-		}
-
-		function patchRoute (route) {
-			route.callbacks.splice(0, 0, middleware);
+		for (var i in routers) {
+			var router = routers[i];
+			router.use(middleware);
 		}
 
 		return app;
