@@ -1,3 +1,6 @@
+# WARNING
+This repo has been modified significantly to be used for a specific project. I have not made improvements to the original module for general purposes, but I might.
+
 # Maintenance
 [![Build Status](https://api.travis-ci.org/likeastore/maintenance.png)](https://travis-ci.org/likeastore/maintenance)
 
