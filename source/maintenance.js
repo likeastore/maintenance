@@ -71,15 +71,7 @@ function maintenance(app, options) {
 	};
 
 	var inject = function (app) {
-		for (var verb in app.routes) {
-			var routes = app.routes[verb];
-			routes.forEach(patchRoute);
-		}
-
-		function patchRoute (route) {
-			route.callbacks.splice(0, 0, middleware);
-		}
-
+		app.use(middleware);
 		return app;
 	};
 
