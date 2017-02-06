@@ -32,7 +32,7 @@
     "chai": "~1.6.1",
     "sinon-chai": "~2.4.0",
     "request": "~2.21.0",
-    "express": "~3.5.1",
+    "express": "~4.13.4",
     "ejs": "~1.0.0"
   },
   "homepage": "https://github.com/likeastore/maintenance"
