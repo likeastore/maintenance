@@ -35,5 +35,8 @@
     "express": "~4.13.4",
     "ejs": "~1.0.0"
   },
-  "homepage": "https://github.com/likeastore/maintenance"
+  "homepage": "https://github.com/likeastore/maintenance",
+  "dependencies": {
+    "sinon": "^1.17.7"
+  }
 }
