@@ -122,11 +122,10 @@ describe('maintenance.js', function () {
 						results = body;
 						done(err);
 					});
-				});
-
-				it('should return normal page', function () {
-					expect(response.statusCode).to.equal(200);
-					expect(results).to.equal('OK');
+					it('should return normal page', function () {
+						expect(response.statusCode).to.equal(200);
+						expect(results).to.equal('OK');
+					});
 				});
 			});
 		});
@@ -172,11 +171,11 @@ describe('maintenance.js', function () {
 						results = body;
 						done(err);
 					});
-				});
-
-				it('should return normal page', function () {
-					expect(response.statusCode).to.equal(200);
-					expect(results).to.equal('OK');
+					
+					it('should return normal page', function () {
+						expect(response.statusCode).to.equal(200);
+						expect(results).to.equal('OK');
+					});
 				});
 			});
 		});
@@ -252,12 +251,12 @@ describe('maintenance.js', function () {
 						results = body;
 						done(err);
 					});
-				});
-
-				it('should return normal page', function () {
-					expect(response.statusCode).to.equal(200);
-					expect(results).to.equal('OK');
-				});
+					
+					it('should return normal page', function () {
+						expect(response.statusCode).to.equal(200);
+						expect(results).to.equal('OK');
+					});
+				});			
 			});
 		});
 	});
