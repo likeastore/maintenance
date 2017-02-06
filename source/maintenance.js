@@ -1,3 +1,5 @@
+var express = require('express');
+
 function maintenance(app, options) {
 	var mode = false,
 		endpoint = false,
@@ -38,15 +40,18 @@ function maintenance(app, options) {
 
 	var server = function (app) {
 		if (endpoint) {
-			app.post(url, checkAccess, function (req, res) {
+			var router = express.Router();
+			router.post(url, checkAccess, function (req, res) {
 				mode = true;
-				res.send(200);
+				res.sendStatus(200);
 			});
 
-			app.del(url, checkAccess, function (req, res) {
+			router.delete(url, checkAccess, function (req, res) {
 				mode = false;
-				res.send(200);
+				res.sendStatus(200);
 			});
+			
+			app.use('/',router);
 		}
 	};
 
