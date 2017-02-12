@@ -85,12 +85,14 @@ describe('maintenance.js', function () {
 					results = body;
 					done(err);
 				});
-				
-				it('should return normal page', function () {
-					expect(response.statusCode).to.equal(200);
-					expect(results).to.equal('OK');
-				});
+
 			});
+			
+			it('should return normal page', function () {
+				expect(response.statusCode).to.equal(200);
+				expect(results).to.equal('OK');
+			});
+
 
 			
 		});
@@ -125,11 +127,13 @@ describe('maintenance.js', function () {
 						done(err);
 					});
 					
-					it('should return normal page', function () {
-						expect(response.statusCode).to.equal(200);
-						expect(results).to.equal('OK');
-					});
 				});
+				
+				it('should return normal page', function () {
+					expect(response.statusCode).to.equal(200);
+					expect(results).to.equal('OK');
+				});
+
 
 				
 			});
@@ -177,10 +181,12 @@ describe('maintenance.js', function () {
 						done(err);
 					});
 					
-					it('should return normal page', function () {
-						expect(response.statusCode).to.equal(200);
-						expect(results).to.equal('OK');
-					});
+
+				});
+				
+				it('should return normal page', function () {
+					expect(response.statusCode).to.equal(200);
+					expect(results).to.equal('OK');
 				});
 
 				
@@ -249,7 +255,9 @@ describe('maintenance.js', function () {
 
 			describe('and return back to normal', function () {
 				beforeEach(function (done) {
-					request.del(url + '/maintenance?access_key=secret', done);
+					request.del(url + '/maintenance?access_key=secret', function(err,resp,body){
+						done(err,body);
+					});
 				});
 
 				beforeEach(function (done) {
@@ -259,13 +267,13 @@ describe('maintenance.js', function () {
 						done(err);
 					});
 					
-					it('should return normal page', function () {
-						expect(response.statusCode).to.equal(200);
-						expect(results).to.equal('OK');
-					});
+				});
+				
+				it('should return normal page', function () {
+					expect(response.statusCode).to.equal(200);
+					expect(results).to.equal('OK');
 				});
 
-				
 			});
 		});
 	});

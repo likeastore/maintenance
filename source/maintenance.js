@@ -56,6 +56,7 @@ function maintenance(app, options) {
 	};
 
 	var handle = function (req, res) {
+
 		var isApi = api && req.url.indexOf(api) === 0;
 
 		res.status(status);
@@ -69,10 +70,21 @@ function maintenance(app, options) {
 
 	var middleware = function (req, res, next) {
 		if (mode) {
-			return handle(req, res);
+			var request_url = req.url.split("?")[0];
+			if(request_url === url && ["DELETE","POST"].indexOf(req.method) != -1){
+				next();
+			}
+			else{
+				return handle(req, res);
+			}
+			
+			
+		}
+		else{
+			next();
 		}
 
-		next();
+		
 	};
 
 	var inject = function (app) {
