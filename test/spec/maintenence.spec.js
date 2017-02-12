@@ -85,13 +85,14 @@ describe('maintenance.js', function () {
 					results = body;
 					done(err);
 				});
-				
+
 			});
 			
 			it('should return normal page', function () {
 				expect(response.statusCode).to.equal(200);
 				expect(results).to.equal('OK');
 			});
+
 
 			
 		});
@@ -132,6 +133,7 @@ describe('maintenance.js', function () {
 					expect(response.statusCode).to.equal(200);
 					expect(results).to.equal('OK');
 				});
+
 
 				
 			});
@@ -179,6 +181,7 @@ describe('maintenance.js', function () {
 						done(err);
 					});
 					
+
 				});
 				
 				it('should return normal page', function () {
@@ -270,6 +273,7 @@ describe('maintenance.js', function () {
 					expect(response.statusCode).to.equal(200);
 					expect(results).to.equal('OK');
 				});
+
 			});
 		});
 	});

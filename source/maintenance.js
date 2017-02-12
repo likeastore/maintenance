@@ -47,7 +47,6 @@ function maintenance(app, options) {
 			});
 
 			router.delete(url, checkAccess, function (req, res) {
-				
 				mode = false;
 				res.sendStatus(200);
 			});
